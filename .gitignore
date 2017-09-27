@@ -1,7 +1,4 @@
 node_modules/
 public/styles/**/*.css
 public/scripts/**/*.js
-wordsandwicheszip/
-wordsandwicheszipzip/
-wordSandwichesPortfolio/
-wordSandwichesPortfolio.zip
+yarn.lock
