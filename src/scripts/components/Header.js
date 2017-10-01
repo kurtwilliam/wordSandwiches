@@ -1,4 +1,5 @@
 import React from 'react';
+import Settings from './Settings.js'
 
 export default class Header extends React.Component{
 	constructor(){
@@ -43,6 +44,7 @@ export default class Header extends React.Component{
 						<p>Try to find all of the words! Words are 3-5 letters long and usually verbs. Each letter belongs to a word, and even if you guess a real word it might not be the right word. Good luck!</p>
 					</div>
 				</div>
+				<Settings />
 			</header>
 		)
 	}
