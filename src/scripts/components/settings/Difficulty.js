@@ -14,7 +14,7 @@ export default class Difficulty extends React.Component{
 
 	}
 	length(){
-
+		
 	}
 	render(){
 		return(
@@ -27,9 +27,9 @@ export default class Difficulty extends React.Component{
 				</div>
 				<div className="settings-difficulty-frequency">
 					<h4>Word Use Frequency</h4>
-					<button>Common</button>
-					<button>UnCommon</button>
-					<button>Rare</button>
+					<button value="1">Common</button>
+					<button value="2">UnCommon</button>
+					<button value="3">Rare</button>
 				</div>
 				<div className="settings-multiplier">
 					<h4>Your Score Multiplier:</h4>

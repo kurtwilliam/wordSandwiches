@@ -10,8 +10,8 @@ let wordApp = {};
 
 export default class Magic extends React.Component{
 	// Set and bind states 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			words: [],
 			userInput: "",
