@@ -7,16 +7,25 @@ export default class Header extends React.Component{
 		// this.modal = this.modal.bind(this);
 		// this.close = this.close.bind(this);
 	// }
-	// modal(){
-	// 	// Get the modal, modalBtn, and closing span
-	// 	let modal = document.getElementById('modal');
-	// 	let btn = document.getElementById("modalBtn");
+	settings(){
+		// Get the modal, modalBtn, and closing span
+		let settings = document.querySelector('.settings');
+		let settingsOverlay = document.querySelector('.settingsOverlay');
+		// let btn = document.getElementById("modalBtn");
 
-	// 	// When the user clicks on the button, open the modal 
-	// 	btn.onclick = function() {
-	// 	    modal.style.display = "block";
-	// 	}
-	// }
+		if (settings.style.display === 'block') {
+			settings.style.display = 'none';
+			settingsOverlay.style.display = 'none';
+		} else {
+			settings.style.display = 'block';
+			settingsOverlay.style.display = 'block';
+		}
+
+		// When the user clicks on the button, open the modal 
+		// btn.onclick = function() {
+		    // modal.style.display = "block";
+		// }
+	}
 	// close(){
 	// 	let span = document.getElementById("close");
 	// 	let modal = document.getElementById('modal');
@@ -35,7 +44,9 @@ export default class Header extends React.Component{
 		return(
 			<header>
 				<h1>Word Sandwiches</h1>
+				<button onClick={this.settings}>Settings</button>
 				<Settings />
+				<div className="settingsOverlay" onClick={this.settings}></div>
 			</header>
 		)
 	}

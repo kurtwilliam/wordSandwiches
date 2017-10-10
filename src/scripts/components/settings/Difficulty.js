@@ -3,39 +3,79 @@ import React from 'react';
 export default class Difficulty extends React.Component{
 	constructor(){
 		super();
-		this.state = {
-
-		}
+		this.state = ({ wordLength: '>2,<5' });
+		this.myCallback = this.myCallback.bind(this);
 	}
-	calculateMultiplier(){
-
-	}
-	frequency(){
-
-	}
-	length(){
-		
+	myCallback(dataFromChild) {
+		// pass state up to parent Settings
+		this.setState({ wordLength: dataFromChild })
+		this.props.callBackFromParent(this.state.wordLength);	
 	}
 	render(){
+		console.log(this.state.wordLength)
 		return(
 			<div className="settings-difficulty">
 				<h3>Difficulty</h3>
 				<div className="settings-difficulty-length">
 					<h4>Word Length</h4>
-					<label htmlFor="wordLength">4 - 6 characters</label>
-					<input type="range" name="wordLength" min="4" max="10" step="1" onChange={this.length} id="wordLengthInput" />
+					<Length name="Short" value=">2,<5" wordLength={this.state.wordLength} callBackFromParent={this.myCallback} />
+					<Length name="Medium" value=">3,<6" wordLength={this.state.wordLength} callBackFromParent={this.myCallback} />
+					<Length name="Long" value=">4,<7" wordLength={this.state.wordLength} callBackFromParent={this.myCallback} />	
 				</div>
 				<div className="settings-difficulty-frequency">
 					<h4>Word Use Frequency</h4>
-					<button value="1">Common</button>
-					<button value="2">UnCommon</button>
-					<button value="3">Rare</button>
+					<Frequency name="Common" />
+					<Frequency name="UnCommon" />
+					<Frequency name="Rare" />				
 				</div>
 				<div className="settings-multiplier">
 					<h4>Your Score Multiplier:</h4>
 					<p></p>
 				</div>
 			</div>
+		)
+	}
+}
+
+class Length extends React.Component {
+	constructor(props){
+		super(props);
+		this.updateLength = this.updateLength.bind(this);
+		this.state = { wordLength: '>2,<5' };
+	}
+	updateLength(){
+		// Make the state of wordLength update to the value of the button that is pressed.
+		this.setState({ wordLength: this.props.value })
+
+		// Pass word length up to Settings VIA changing state for parent
+		this.props.callBackFromParent(this.state.wordLength);
+	}
+	render() {
+		return (
+			<button onClick={() => this.updateLength()}>{this.props.name}</button>
+		)
+	}
+}
+
+class Frequency extends React.Component {
+	constructor(props){
+		super(props);
+		this.updateFrequency = this.updateFrequency.bind(this);
+		// this.state = { wordFrequency: 'Roboto, sans-serif' };
+	}
+	updateFrequency(){
+		// Make the state of fontFamily update to the value of the button that is pressed.
+		// this.setState({ fontFamily: this.props.value })
+
+		// Set the font-family style in the game paragraph to the button that is pressed. 
+		// let gameDivP = document.getElementById('gameDivP');
+		// gameDivP.style.fontFamily = this.state.fontFamily;
+	}
+	render() {
+		// let fontFam = { fontFamily: this.props.value };
+
+		return (
+			<button onClick={() => this.updateFrequency()}>{this.props.name}</button>
 		)
 	}
 }

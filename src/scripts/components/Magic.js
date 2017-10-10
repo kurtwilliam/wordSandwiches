@@ -31,6 +31,8 @@ export default class Magic extends React.Component{
 	randoArrayPull(i) {
 		let wordsArray = this.state.words;
 
+		console.log(wordsArray)
+
 		//Only run function if the Ajax request has populated a list
 		if ( wordsArray.length > 0 ) {
 			
@@ -237,6 +239,7 @@ export default class Magic extends React.Component{
 		}
 	}
 	render(){
+		console.log(this.props.wordLength)
 		return(
 			<div className="wrapper">
 				<div className="triangleLeft"></div>
@@ -272,7 +275,7 @@ export default class Magic extends React.Component{
 				},
 				params:{
 					offset: offsetRando,
-					word_length: '>2,<5',
+					word_length: this.props.wordLength,
 					exact: false
 				}
 			}
