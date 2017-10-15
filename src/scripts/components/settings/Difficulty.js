@@ -4,12 +4,6 @@ export default class Difficulty extends React.Component{
 	constructor(){
 		super();
 		this.state = ({ wordLength: '>2,<5' });
-		this.myCallback = this.myCallback.bind(this);
-	}
-	myCallback(dataFromChild) {
-		// pass state up to parent Settings
-		this.setState({ wordLength: dataFromChild })
-		this.props.callBackFromParent(this.state.wordLength);	
 	}
 	render(){
 		console.log(this.state.wordLength)
@@ -18,9 +12,9 @@ export default class Difficulty extends React.Component{
 				<h3>Difficulty</h3>
 				<div className="settings-difficulty-length">
 					<h4>Word Length</h4>
-					<Length name="Short" value=">2,<5" wordLength={this.state.wordLength} callBackFromParent={this.myCallback} />
-					<Length name="Medium" value=">3,<6" wordLength={this.state.wordLength} callBackFromParent={this.myCallback} />
-					<Length name="Long" value=">4,<7" wordLength={this.state.wordLength} callBackFromParent={this.myCallback} />	
+					<Length name="Short" value=">2,<5" wordLength={this.state.wordLength} />
+					<Length name="Medium" value=">3,<6" wordLength={this.state.wordLength} />
+					<Length name="Long" value=">4,<7" wordLength={this.state.wordLength} />	
 				</div>
 				<div className="settings-difficulty-frequency">
 					<h4>Word Use Frequency</h4>
@@ -41,7 +35,7 @@ class Length extends React.Component {
 	constructor(props){
 		super(props);
 		this.updateLength = this.updateLength.bind(this);
-		this.state = { wordLength: '>2,<5' };
+		// this.state = { wordLength: '>2,<5' };
 	}
 	updateLength(){
 		// Make the state of wordLength update to the value of the button that is pressed.

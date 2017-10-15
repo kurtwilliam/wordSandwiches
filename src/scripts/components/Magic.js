@@ -239,7 +239,6 @@ export default class Magic extends React.Component{
 		}
 	}
 	render(){
-		console.log(this.props.wordLength)
 		return(
 			<div className="wrapper">
 				<div className="triangleLeft"></div>
