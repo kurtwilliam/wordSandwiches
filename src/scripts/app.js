@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Header from './components/Header.js';
-import Magic from './components/Magic.js';
-import Footer from './components/Footer.js';
+import Header from './containers/Header.js';
+import Magic from './containers/Magic.js';
+import Footer from './containers/Footer.js';
 
 class App extends React.Component {
 	render(){

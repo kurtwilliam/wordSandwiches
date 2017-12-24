@@ -1,7 +1,7 @@
 import React from 'react';
-import FontFamily from './settings/FontFamily.js';
-import FontSize from './settings/FontSize.js';
-import Difficulty from './settings/Difficulty.js';
+import FontFamily from '../containers/settings/FontFamily.js';
+import FontSize from '../containers/settings/FontSize.js';
+import Difficulty from '../containers/settings/Difficulty.js';
 
 export default class Settings extends React.Component{
 	render(){

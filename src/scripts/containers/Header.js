@@ -1,5 +1,5 @@
 import React from 'react';
-import Settings from './Settings.js'
+import Settings from '../components/Settings.js'
 
 export default class Header extends React.Component{
 	// constructor(){

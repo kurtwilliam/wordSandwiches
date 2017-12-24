@@ -6,7 +6,6 @@ export default class Difficulty extends React.Component{
 		this.state = ({ wordLength: '>2,<5' });
 	}
 	render(){
-		console.log(this.state.wordLength)
 		return(
 			<div className="settings-difficulty">
 				<h3>Difficulty</h3>

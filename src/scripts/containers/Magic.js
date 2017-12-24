@@ -31,8 +31,6 @@ export default class Magic extends React.Component{
 	randoArrayPull(i) {
 		let wordsArray = this.state.words;
 
-		console.log(wordsArray)
-
 		//Only run function if the Ajax request has populated a list
 		if ( wordsArray.length > 0 ) {
 			
@@ -45,7 +43,7 @@ export default class Magic extends React.Component{
 
 			// Filter array for any non alphabet characters
 			let filteredWords = wordsArray.filter((word) => {
-				return word.word.match(/\'|\-|\´/ig) === null
+				return word.word.match(/\'|\-|\´|\ |\//ig) === null
 			})
 			
 			// Create shuffling function
@@ -82,6 +80,8 @@ export default class Magic extends React.Component{
 			for ( i = 0; i < answerKey.length; i++ ) {
 				wordApp.answerKey.push(answerKey[i].word)
 			}
+
+			console.log(wordApp.answerKey)
 
 			// Make a string we can combine all of the words in!
 			let wordStr = ``;
@@ -255,10 +255,12 @@ export default class Magic extends React.Component{
 						<button id='userInputBtn' className="hidden" type="submit">Answer!</button>
 					</form>
 				</div>
+				<GetTest />
 			</div>
 		)
 	}
 	componentDidMount(){
+		console.log(this)
 		// Oxford Dictionary API call
 		ajax({
 			url: `http://proxy.hackeryou.com`, 
@@ -274,13 +276,86 @@ export default class Magic extends React.Component{
 				},
 				params:{
 					offset: offsetRando,
-					word_length: this.props.wordLength,
+					word_length: '>4<6',
 					exact: false
 				}
 			}
 			}).then((data) =>{
 				this.setState({
 					words: data.results
+				});
+		});
+	}
+}
+
+class GetTest extends React.Component{
+	constructor(props){
+		super(props);
+		this.state = {
+			newWord: "",
+			word: [],
+			wordFreq: [],
+		}
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+	handleChange(e){
+		// Update user input when it is changed
+		e.preventDefault();
+
+		this.setState({
+			newWord: e.target.value,
+		})
+	}
+	render(){
+		return(
+			<div className="ajaxCall">
+				<form onSubmit={this.handleSubmit}>
+					<input id='ajaxInput' className="" name="ajaxInput" value={this.state.newWord} onChange={this.handleChange} placeholder="" autoCorrect="off" autoComplete="off" autoCapitalize="none" />
+					<button id='ajaxBtn' className="" type="submit">ajax</button>
+				</form>
+			</div>
+		)
+	}
+	handleSubmit(e){
+		e.preventDefault();
+
+		// Oxford Dictionary API call
+		console.log('butt munch')
+		ajax({
+			url: `http://proxy.hackeryou.com`, 
+			type: 'GET',
+			dataType: 'json',
+			data:{
+				reqUrl: `https://od-api.oxforddictionaries.com:443/api/v1/entries/en/${this.state.newWord}`,
+				xmlToJSON: "false",
+				proxyHeaders:{
+					"Accept": "application/json",
+					"app_id": app_id,
+					"app_key": app_key
+				},
+			}
+			}).then((data) =>{
+				this.setState({ word: data.results });
+				console.log(this.state.word)
+
+				ajax({
+					url: `http://proxy.hackeryou.com`, 
+					type: 'GET',
+					dataType: 'json',
+					data:{
+						reqUrl: `https://od-api.oxforddictionaries.com:443/api/v1/stats/frequency/words/en/?wordform=${this.state.newWord}`,
+						xmlToJSON: "false",
+						proxyHeaders:{
+							"Accept": "application/json",
+							"app_id": app_id,
+							"app_key": app_key
+						},
+					}
+					}).then((data) =>{
+						console.log(data)
+						this.setState({ wordFreq: data.results });
+						console.log(this.state.wordFreq)
 				});
 		});
 	}
