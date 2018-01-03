@@ -213,34 +213,6 @@ h4 {
 	}
 }
 
-#gameDiv {
-	p{
-		margin-bottom: 0;
-	}
-	h2{
-		padding-bottom:40px;
-		@media (max-width:600px){
-			font-size: 2.4rem;
-		}
-		@media (max-width:500px){
-			padding-bottom: 10px;
-		}
-	}
-	#gameDivP{
-		word-break:break-all;
-
-	}
-}
-
-form{
-	display:flex;
-	flex-direction: column;
-	min-width: 200px;
-	input{
-		margin:5px;
-	}
-}
-
 footer {
 	position: absolute;
 	bottom:0;

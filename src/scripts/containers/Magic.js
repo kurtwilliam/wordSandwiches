@@ -43,7 +43,7 @@ export default class Magic extends React.Component{
 
 			// Filter array for any non alphabet characters
 			let filteredWords = wordsArray.filter((word) => {
-				return word.word.match(/\'|\-|\´|\ |\//ig) === null
+				return word.word.match(/\'|\-|\´|\"|\^|\ |\//ig) === null
 			})
 			
 			// Create shuffling function
@@ -71,14 +71,16 @@ export default class Magic extends React.Component{
 			// Select the first few results based on the difficulty and store them in another array, the answerKey
 			// Use this to later verify if a user inputted a real result
 
-			let answerKey = filteredWords.slice(0, 10);
+			const answerKey = filteredWords.slice(0, 10);
 
 			// Empty answerKey
 			wordApp.answerKey = [];
 
 			// Put each word in the answer key
 			for ( i = 0; i < answerKey.length; i++ ) {
-				wordApp.answerKey.push(answerKey[i].word)
+				// console.log(answerKey[i])
+				// const wrappedWord = `<div class="wordWrapper">${answerKey[i].word}</div>`
+				wordApp.answerKey.push(wrappedWord)
 			}
 
 			console.log(wordApp.answerKey)
@@ -214,7 +216,18 @@ export default class Magic extends React.Component{
 			// Remove user input from Array 
 			inputState.splice(indexKey, 1);
 			// Remove user input from word paragraph 
-			let newWordPara = wordPara.replace(inputUser, '');
+
+			// const wordDiv = document.createElement('div')
+			// wordDiv.className = 'hideWord';
+			// wordDiv.innerHTML = inputUser;
+
+			// console.log(wordPara, wordStrInput);
+			// console.log(inputState, indexKey);
+
+			// var span = document.createElement('span');
+			// span.appendChild(document.createTextNode(' span contents '));
+
+			let newWordPara = wordPara.replace(inputUser, wordDiv);
 			wordPara = newWordPara;
 			// Add 5 points to score
 			this.setState({

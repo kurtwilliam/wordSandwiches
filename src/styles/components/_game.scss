@@ -1,0 +1,32 @@
+#gameDiv {
+	p{
+		margin-bottom: 0;
+		width:auto;
+	}
+	h2{
+		padding-bottom:40px;
+		@media (max-width:600px){
+			font-size: 2.4rem;
+		}
+		@media (max-width:500px){
+			padding-bottom: 10px;
+		}
+	}
+	#gameDivP{
+		word-break:break-all;
+	}
+}
+
+.hideWord {
+	width:0px;
+	transition: all 0.2s;
+}
+
+form{
+	display:flex;
+	flex-direction: column;
+	min-width: 200px;
+	input{
+		margin:5px;
+	}
+}
