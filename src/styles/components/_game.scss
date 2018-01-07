@@ -1,20 +1,115 @@
-#gameDiv {
-	p{
-		margin-bottom: 0;
-		width:auto;
+.main {
+	margin:auto;
+	max-width:850px;
+	padding:20px;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: rgb(200,245,245);
+	border-radius: 20px;
+	transition: all 0.15s;
+	box-shadow:  0 10px 10px rgba(0,0,0,0.3);
+	transform:scale(1);
+
+	@media (max-width: 400px){
+		padding:10px;
 	}
-	h2{
-		padding-bottom:40px;
-		@media (max-width:600px){
-			font-size: 2.4rem;
+
+	#gameDiv {
+		min-width:500px;
+		max-width:700px;
+		width:100%;
+		border-top: 3px solid black;
+		border-bottom: 3px solid black;
+		margin:10px 0;
+		text-align: center;
+		@media (max-width: 580px){
+			min-width: 0;
 		}
-		@media (max-width:500px){
-			padding-bottom: 10px;
+		p{
+			display:block;
+			text-align: center;
+			margin:0;
+			padding:20px 20px 0 20px;
+			font-family: 'Montserrat', 'Helvetica Neue', 'Helvetica', sans-serif;
+			font-size:2.4rem;
+			font-weight: 700;
+			letter-spacing: 2px;
+			margin-bottom: 0;
+			width:auto;
+			font-weight:300;;
+			@media (max-width: 500px){
+				padding: 5px;
+			}
+		}
+
+		h2{
+			padding-bottom:40px;
+			font-weight:300;
+			@media (max-width:600px){
+				font-size: 2.4rem;
+			}
+			@media (max-width:500px){
+				padding-bottom: 10px;
+			}
+		}
+		#gameDivP{
+			word-break:break-all;
+		}
+
+		.resultScore {
+			padding-top:0;
+		}
+
+		.resultTableAnswerRow {
+			display:flex;
+			align-items: center;
+
+			p.resultTableAnswer {
+				padding: 0 5px 0 0;
+				min-width:150px;
+				text-align: left;
+
+			}
+
+			span {
+				text-align: left;
+				font-size: 1.6rem;
+			}
 		}
 	}
-	#gameDivP{
-		word-break:break-all;
+	button{
+		font-size: 1.6rem;
+		background-color: rgba(255,255,255,0.3);
+		border: none;
+		margin:5px;
+		border-radius: 5px;
+		font-weight: 300;
+		padding:10px;
+		width:250px;
 	}
+
+	input{
+		font-size: 3rem;
+		width:250px;
+		background-color: rgba(255,255,255,0.8);
+		border: none;
+		padding:5px;
+	}
+	input:focus{
+		outline:none;
+	}
+}
+
+.correctAnswer {
+	box-shadow:0px 0px 30px rgba(98,232,83,1);
+	transform:scale(1.03);
+}
+
+.incorrectAnswer {
+	box-shadow:0px 0px 30px rgba(255,62,57,1);
+	transform:scale(0.97);
 }
 
 .hideWord {

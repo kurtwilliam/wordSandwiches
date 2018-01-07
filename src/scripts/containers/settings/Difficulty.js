@@ -1,25 +1,15 @@
 import React from 'react';
 
 export default class Difficulty extends React.Component{
-	constructor(){
-		super();
-		this.state = ({ wordLength: '>2,<5' });
-	}
 	render(){
 		return(
 			<div className="settings-difficulty">
 				<h3>Difficulty</h3>
 				<div className="settings-difficulty-length">
 					<h4>Word Length</h4>
-					<Length name="Short" value=">2,<5" wordLength={this.state.wordLength} />
-					<Length name="Medium" value=">3,<6" wordLength={this.state.wordLength} />
-					<Length name="Long" value=">4,<7" wordLength={this.state.wordLength} />	
-				</div>
-				<div className="settings-difficulty-frequency">
-					<h4>Word Use Frequency</h4>
-					<Frequency name="Common" />
-					<Frequency name="UnCommon" />
-					<Frequency name="Rare" />				
+					<Length name="Short" value="short" onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />
+					<Length name="Medium" value="med" onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />
+					<Length name="Long" value="long" onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />	
 				</div>
 				<div className="settings-multiplier">
 					<h4>Your Score Multiplier:</h4>
@@ -30,22 +20,26 @@ export default class Difficulty extends React.Component{
 	}
 }
 
+// <div className="settings-difficulty-frequency">
+// 	<h4>Word Use Frequency</h4>
+// 	<Frequency name="Common" />
+// 	<Frequency name="UnCommon" />
+// 	<Frequency name="Rare" />				
+// </div>
+
 class Length extends React.Component {
 	constructor(props){
 		super(props);
-		this.updateLength = this.updateLength.bind(this);
-		// this.state = { wordLength: '>2,<5' };
+		this.handleChange = this.handleChange.bind(this);
 	}
-	updateLength(){
-		// Make the state of wordLength update to the value of the button that is pressed.
-		this.setState({ wordLength: this.props.value })
-
-		// Pass word length up to Settings VIA changing state for parent
-		this.props.callBackFromParent(this.state.wordLength);
+	handleChange(e) {
+		// pass wordLength up to app to customize settings length
+		this.props.onWordLengthChange(this.props.value);
 	}
 	render() {
+		const length = this.props.length;
 		return (
-			<button onClick={() => this.updateLength()}>{this.props.name}</button>
+			<button onClick={this.handleChange}>{this.props.name}</button>
 		)
 	}
 }
@@ -55,14 +49,6 @@ class Frequency extends React.Component {
 		super(props);
 		this.updateFrequency = this.updateFrequency.bind(this);
 		// this.state = { wordFrequency: 'Roboto, sans-serif' };
-	}
-	updateFrequency(){
-		// Make the state of fontFamily update to the value of the button that is pressed.
-		// this.setState({ fontFamily: this.props.value })
-
-		// Set the font-family style in the game paragraph to the button that is pressed. 
-		// let gameDivP = document.getElementById('gameDivP');
-		// gameDivP.style.fontFamily = this.state.fontFamily;
 	}
 	render() {
 		// let fontFam = { fontFamily: this.props.value };

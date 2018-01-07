@@ -150,69 +150,6 @@ h4 {
 	padding-bottom:95px;
 }
 
-.main {
-	margin:auto;
-	max-width:850px;
-	padding:20px;
-	display:flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	background-color: rgb(200,245,245);
-	border-radius: 20px;
-	box-shadow:  0 10px 10px rgba(0,0,0,0.3);
-	@media (max-width: 400px){
-		padding:10px;
-	}
-
-	div {
-		min-width:500px;
-		width:100%;
-		border-top: 3px solid black;
-		border-bottom: 3px solid black;
-		margin:10px 0;
-		text-align: center;
-		@media (max-width: 580px){
-			min-width: 0;
-		}
-		p{
-			display:block;
-			text-align: center;
-			margin:0;
-			padding:20px 20px 0 20px;
-			font-family: 'Montserrat', 'Helvetica Neue', 'Helvetica', sans-serif;
-			font-size:4.2rem;
-			font-weight: 700;
-			letter-spacing: 2px;
-			@media (max-width: 500px){
-				padding: 5px;
-				font-size: 4rem;
-			}
-		}
-	}
-	button{
-		font-size: 1.6rem;
-		background-color: rgba(255,255,255,0.3);
-		border: none;
-		margin:5px;
-		border-radius: 5px;
-		font-weight: 300;
-		padding:10px;
-		width:250px;
-	}
-
-	input{
-		font-size: 3rem;
-		width:250px;
-		background-color: rgba(255,255,255,0.8);
-		border: none;
-		padding:5px;
-	}
-	input:focus{
-		outline:none;
-	}
-}
-
 footer {
 	position: absolute;
 	bottom:0;

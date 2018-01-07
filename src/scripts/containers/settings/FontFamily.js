@@ -47,13 +47,10 @@ class ChooseFont extends React.Component {
 		this.setState({ fontFamily: this.props.value })
 
 		// Set the font-family style in the game paragraph to the button that is pressed.
-		let gameDivH2 = document.getElementById('gameDivH2');
-		gameDivH2.style.fontSize = this.state.fontFamily;
-
-		let gameDivP = document.getElementById('gameDivP');
-		gameDivP.style.fontFamily = this.state.fontFamily;
-		
-		// Show the button is active when clicking ...
+		let gameChange = document.querySelectorAll('.changeStyle');
+		for (let i = 0; i < gameChange.length; i++ ) {
+			gameChange[i].style.fontFamily = this.state.fontFamily;
+		}
 	}
 	render() {
 		let fontFam = { fontFamily: this.props.value };

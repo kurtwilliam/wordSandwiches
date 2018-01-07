@@ -4,8 +4,8 @@ export default class FontSize extends React.Component{
 	constructor(){
 		super();
 		this.state = {
-			fontSize: 4.2,
-			fontSizeDisplay: 4.2,
+			fontSize: 2.4,
+			fontSizeDisplay: 2.4,
 		}
 		this.changeFontSize = this.changeFontSize.bind(this);
 	}
@@ -20,10 +20,12 @@ export default class FontSize extends React.Component{
 		})
 
 		// Set font size of game paragraph	
-		let gameDivH2 = document.getElementById('gameDivH2');
-		gameDivH2.style.fontSize = `${this.state.fontSize}rem`;
+		let gameChange = document.querySelectorAll('.changeStyle');
+		for (let i = 0; i < gameChange.length; i++ ) {
+			gameChange[i].style.fontSize = `${this.state.fontSize}rem`;
+		}
 
-		let gameDivP = document.getElementById('gameDivP');
+		// let gameDivP = document.getElementById('gameDivP');
 		gameDivP.style.fontSize = `${this.state.fontSize}rem`;
 	}
 	render(){
