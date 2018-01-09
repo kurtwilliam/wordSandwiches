@@ -49,6 +49,8 @@ export default class Words extends React.Component{
 			// filter words for various properties
 			const words = this.state.words;
 			const wordLength = this.props.length;
+			const numberOfWords = this.props.numberOfWords
+
 			function wordFilter(word) {
 				let min, max;
 				// Gets state of wordlength button and use it to figure out how to filter words
@@ -70,7 +72,6 @@ export default class Words extends React.Component{
 			}
 
 			const filteredWords = words.filter(wordFilter)
-			const numberOfWords = this.props.numberOfWords
 
 			console.log(filteredWords)
 
@@ -277,9 +278,19 @@ export default class Words extends React.Component{
 			} else {
 				incorrectAnswersStr = <p className="resultTableAnswer">None 🤗</p> 
 			}
+			let scoreLength;
+			const wordLength = this.props.length;
+			if (wordLength === 'short') { scoreLength = 1 }
+			else if ( wordLength === 'med' ) { scoreLength = 2 }
+			else if ( wordLength === 'long' ) { scoreLength = 3 }
+
+			// const totalScore = this.props.numberOfWords * scoreLength * this.state.points 
+
 			const gameDiv = (
 				<div className="result">
-					<p className="resultScore">Score: {this.state.points}</p>
+					<h2>Score: </h2>
+					<p className="resultCalc">Number of Words: {this.props.numberOfWords}, Word Length: {this.props.length}, Word Difficulty: ??</p>
+					<p className="resultScore">{this.state.points}</p>
 					<div className="resultTable">
 						<div className="resultTableWin">
 							<h4>Correct Words</h4>
@@ -374,7 +385,7 @@ export default class Words extends React.Component{
 				<div className="triangleLeft"></div>
 				<div className="triangleRight"></div>
 				<div className="main">
-					<h4 className="points">Score: {this.state.points}</h4>
+					<h4 className="points">Timer: {this.state.points}</h4>
 					<div id="gameDiv">
 						<p id="gameDivP" className="changeStyle" ref>{this.state.wordStr}</p>
 						<span id="gameDivSpan">{this.state.gameOver}</span>
@@ -404,85 +415,11 @@ export default class Words extends React.Component{
 			wordList.send(null);
 		};
 
-		readTextFile('../../words/20k.txt')
+		// readTextFile('../../words/20k.txt')
+		readTextFile('http://kurtwilliam.com/word-sandwiches/words/20k.txt')
 
 		this.setState({
 			words: allWords
 		})
-	}
-}
-
-// <GetTest />
-
-class GetTest extends React.Component{
-	constructor(props){
-		super(props);
-		this.state = {
-			newWord: "",
-			word: [],
-			wordFreq: [],
-		}
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-	handleChange(e){
-		// Update user input when it is changed
-		e.preventDefault();
-
-		this.setState({
-			newWord: e.target.value,
-		})
-	}
-	render(){
-		return(
-			<div className="ajaxCall">
-				<form onSubmit={this.handleSubmit}>
-					<input id='ajaxInput' className="" name="ajaxInput" value={this.state.newWord} onChange={this.handleChange} placeholder="" autoCorrect="off" autoComplete="off" autoCapitalize="none" />
-					<button id='ajaxBtn' className="" type="submit">ajax</button>
-				</form>
-			</div>
-		)
-	}
-	handleSubmit(e){
-		e.preventDefault();
-
-		// Oxford Dictionary API call
-		console.log('butt munch')
-		ajax({
-			url: `http://proxy.hackeryou.com`, 
-			type: 'GET',
-			dataType: 'json',
-			data:{
-				reqUrl: `https://od-api.oxforddictionaries.com:443/api/v1/entries/en/${this.state.newWord}`,
-				xmlToJSON: "false",
-				proxyHeaders:{
-					"Accept": "application/json",
-					"app_id": app_id,
-					"app_key": app_key
-				},
-			}
-			}).then((data) =>{
-				this.setState({ word: data.results });
-				console.log(this.state.word)
-
-				ajax({
-					url: `http://proxy.hackeryou.com`, 
-					type: 'GET',
-					dataType: 'json',
-					data:{
-						reqUrl: `https://od-api.oxforddictionaries.com:443/api/v1/stats/frequency/words/en/?wordform=${this.state.newWord}`,
-						xmlToJSON: "false",
-						proxyHeaders:{
-							"Accept": "application/json",
-							"app_id": app_id,
-							"app_key": app_key
-						},
-					}
-					}).then((data) =>{
-						console.log(data)
-						this.setState({ wordFreq: data.results });
-						console.log(this.state.wordFreq)
-				});
-		});
 	}
 }

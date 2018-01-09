@@ -32,7 +32,7 @@ class NumberOfWords extends React.Component {
 		})
 		e.currentTarget.classList.add('diffSelNum')
 		// pass wordLength up to app to customize settings length
-		this.props.onWordLengthChange(this.props.value);
+		this.props.onNumberOfWordsChange(this.props.value);
 	}
 	render() {
 		const length = this.props.length;
