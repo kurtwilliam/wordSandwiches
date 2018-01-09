@@ -70,6 +70,7 @@ export default class Words extends React.Component{
 			}
 
 			const filteredWords = words.filter(wordFilter)
+			const numberOfWords = this.props.numberOfWords
 
 			console.log(filteredWords)
 
@@ -89,8 +90,8 @@ export default class Words extends React.Component{
 				   array[currentIndex] = array[randomIndex];
 				   array[randomIndex] = temporaryValue;
 			  	}
-			  	const smallArray = array.slice(0, 10);
-			  	
+
+			  	const smallArray = array.slice(0, numberOfWords);
 			  	return smallArray;
 			}
 

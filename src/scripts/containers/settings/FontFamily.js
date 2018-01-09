@@ -42,7 +42,11 @@ class ChooseFont extends React.Component {
 			document.getElementsByTagName('head')[0].innerHTML = newHead
 		}
 	}
-	changeFont(){
+	changeFont(e){
+		document.querySelectorAll('.diffSelFam').forEach(i => {
+			i.classList.remove('diffSelFam');
+		})
+		e.currentTarget.classList.add('diffSelFam')
 		// Make the state of fontFamily update to the value of the button that is pressed.
 		this.setState({ fontFamily: this.props.value })
 
@@ -56,7 +60,7 @@ class ChooseFont extends React.Component {
 		let fontFam = { fontFamily: this.props.value };
 
 		return (
-			<button onClick={() => this.changeFont()} style={fontFam}>{this.props.name}</button>
+			<button onClick={(e) => this.changeFont(e)} style={fontFam}>{this.props.name}</button>
 		)
 	}
 }

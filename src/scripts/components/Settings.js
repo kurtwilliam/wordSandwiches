@@ -9,7 +9,7 @@ export default class Settings extends React.Component{
 			<section className="settings">
 				<FontFamily />
 				<FontSize />
-				<Difficulty onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />
+				<Difficulty onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} numberOfWords={this.props.numberOfWords} onNumberOfWordsChange={this.props.onNumberOfWordsChange} />
 			</section>
 		)
 	}

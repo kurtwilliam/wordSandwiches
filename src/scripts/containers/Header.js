@@ -45,7 +45,7 @@ export default class Header extends React.Component{
 			<header>
 				<h1>Word Sandwiches</h1>
 				<button onClick={this.settings}>Settings</button>
-				<Settings onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />
+				<Settings onWordLengthChange={this.props.onWordLengthChange} numberOfWords={this.props.numberOfWords} onNumberOfWordsChange={this.props.onNumberOfWordsChange} length={this.props.length} />
 				<div className="settingsOverlay" onClick={this.settings}></div>
 			</header>
 		)
