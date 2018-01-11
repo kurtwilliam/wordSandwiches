@@ -3,20 +3,21 @@ import React from 'react';
 export default class Difficulty extends React.Component{
 	render(){
 		return(
-			<div className="settings-difficulty">
+			<section className="difficulty">
 				<h3>Difficulty</h3>
-				<div className="settings-difficulty-length">
+				<div className="difficulty-length">
 					<h4>Word Length</h4>
 					<Length name="Short" value="short" onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />
 					<Length name="Medium" value="med" onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />
 					<Length name="Long" value="long" onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />	
 				</div>
-				<div className="settings-difficulty-number">
-					<NumberOfWords name="7" value="7" onNumberOfWordsChange={this.props.onNumberOfWordsChange} numberOfWords={this.props.numberOfWords} className="difficultySelected" />
-					<NumberOfWords name="10" value="10" onNumberOfWordsChange={this.props.onNumberOfWordsChange} numberOfWords={this.props.numberOfWords} />
-					<NumberOfWords name="13" value="13" onNumberOfWordsChange={this.props.onNumberOfWordsChange} numberOfWords={this.props.numberOfWords} />	
+				<div className="difficulty-number">
+					<h4>Number of Words</h4>
+					<NumberOfWords name="6" value="6" onNumberOfWordsChange={this.props.onNumberOfWordsChange} numberOfWords={this.props.numberOfWords} className="difficultySelected" />
+					<NumberOfWords name="8" value="8" onNumberOfWordsChange={this.props.onNumberOfWordsChange} numberOfWords={this.props.numberOfWords} />
+					<NumberOfWords name="10" value="10" onNumberOfWordsChange={this.props.onNumberOfWordsChange} numberOfWords={this.props.numberOfWords} />	
 				</div>
-			</div>
+			</section>
 		)
 	}
 }
@@ -63,7 +64,7 @@ class Length extends React.Component {
 	}
 }
 
-// <div className="settings-difficulty-frequency">
+// <div className="difficulty-frequency">
 // 	<h4>Word Use Frequency</h4>
 // 	<Frequency name="Common" />
 // 	<Frequency name="UnCommon" />

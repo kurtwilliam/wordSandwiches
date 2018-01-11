@@ -1,5 +1,6 @@
 import React from 'react';
 import Settings from '../components/Settings.js'
+import Difficulty from '../components/Difficulty.js'
 
 export default class Header extends React.Component{
 	// constructor(){
@@ -7,24 +8,30 @@ export default class Header extends React.Component{
 		// this.modal = this.modal.bind(this);
 		// this.close = this.close.bind(this);
 	// }
-	settings(){
+	settings(e) {
 		// Get the modal, modalBtn, and closing span
-		let settings = document.querySelector('.settings');
-		let settingsOverlay = document.querySelector('.settingsOverlay');
-		// let btn = document.getElementById("modalBtn");
+		const settings = document.querySelector('.settings');
+		const difficulty = document.querySelector('.difficulty');
+		const settingsOverlay = document.querySelector('.settingsOverlay');
+		const difficultyOverlay = document.querySelector('.difficultyOverlay');
 
-		if (settings.style.display === 'block') {
-			settings.style.display = 'none';
-			settingsOverlay.style.display = 'none';
+		if (e.currentTarget.innerHTML === 'Difficulty') {
+			if (difficulty.style.display === 'block') {
+				difficulty.style.display === 'none'
+				difficultyOverlay.style.display = 'none';
+			} else {
+				difficulty.style.display = 'block';
+				difficultyOverlay.style.display = 'block';
+			}
 		} else {
-			settings.style.display = 'block';
-			settingsOverlay.style.display = 'block';
+			if (settings.style.display === 'block') {
+				settings.style.display = 'none';
+				settingsOverlay.style.display = 'none';
+			} else {
+				settings.style.display = 'block';
+				settingsOverlay.style.display = 'block';
+			}
 		}
-
-		// When the user clicks on the button, open the modal 
-		// btn.onclick = function() {
-		    // modal.style.display = "block";
-		// }
 	}
 	// close(){
 	// 	let span = document.getElementById("close");
@@ -43,10 +50,17 @@ export default class Header extends React.Component{
 	render(){
 		return(
 			<header>
+				<div className="difficulty-container header-cont">
+					<button onClick={this.settings}>Difficulty</button>
+					<Difficulty onWordLengthChange={this.props.onWordLengthChange} numberOfWords={this.props.numberOfWords} onNumberOfWordsChange={this.props.onNumberOfWordsChange} length={this.props.length} />
+					<div className="difficulty-overlay" onClick={this.settings}></div>
+				</div>
 				<h1>Word Sandwiches</h1>
-				<button onClick={this.settings}>Settings</button>
-				<Settings onWordLengthChange={this.props.onWordLengthChange} numberOfWords={this.props.numberOfWords} onNumberOfWordsChange={this.props.onNumberOfWordsChange} length={this.props.length} />
-				<div className="settingsOverlay" onClick={this.settings}></div>
+				<div className="settings-container header-cont">
+					<button onClick={this.settings}>Settings</button>
+					<Settings />
+					<div className="settings-overlay" onClick={this.settings}></div>
+				</div>
 			</header>
 		)
 	}

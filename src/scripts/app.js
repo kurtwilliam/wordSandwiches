@@ -15,7 +15,7 @@ class App extends React.Component {
 		this.setState({length: wordLength})
 	}
 	handleNumberOfWordsChange(numberOfWords) {
-		this.set
+		this.setState({numberOfWords:numberOfWords})
 	}
 
 	render(){

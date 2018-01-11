@@ -58,11 +58,11 @@ export default class Words extends React.Component{
 					min = 6;
 					max = 8;
 				} else if (wordLength === 'long') {
-					min = 7;
+					min = 8;
 					max = 10;
 				} else {
 					min = 5;
-					max = 7;
+					max = 6;
 				}
 
 				if (word.length >= min && word.length <= max) {
@@ -70,10 +70,9 @@ export default class Words extends React.Component{
 				}
 				return;
 			}
+			  	console.log(numberOfWords)
 
 			const filteredWords = words.filter(wordFilter)
-
-			console.log(filteredWords)
 
 			// Create shuffling function
 			function shuffle(array) {
@@ -109,6 +108,8 @@ export default class Words extends React.Component{
 			for ( let i = 0; i < answerKey.length; i++ ) {
 				wordApp.answerKey.push(answerKey[i])
 			}
+
+			this.multiplierCalc();
 
 			// Make a string we can combine all of the words in!
 			let wordStr = ``;
@@ -170,34 +171,70 @@ export default class Words extends React.Component{
 			}
 		},1000);
 	}
-	multiplierCalc(i) {
+	multiplierCalc() {
 		// Oxford Dictionary LexiStats call
 		
-		const word = wordApp.answerKey[i];
-		const reqUrl = `https://od-api.oxforddictionaries.com:443/api/v1/stats/frequency/words/en/?corpus=nmc&lemma=${word}&offset=0&limit=100`
+		// const reqUrl = `https://od-api.oxforddictionaries.com:443/api/v1/stats/frequency/words/en/?corpus=nmc&lemma=${word}&offset=0&limit=100`;
 
-		console.log(reqUrl)
-		console.log(word)
+
+		// $(document).ready(function(){
+		// ajaxSetup({
+		// 	headers: {
+		// 		"Accept": "application/json",
+		// 		"app_id": app_id,
+		// 		"app_key": app_key,
+		// 	}
+		// });
+
+			// type: 'GET',
+
+
+		// ajax({
+		// 	type:'POST',
+		// 	url:'https://od-api.oxforddictionaries.com:443/api/v1/stats/frequency/word/en/',
+		// 	dataType: 'json',
+		// 	headers: {
+		// 		"Accept": "json",
+		// 		"app_id": app_id,
+		// 		"app_key": app_key,
+		// 	},
+		// 	data: {
+	 //         "lemma": "test",
+	 //      }
+		// }).then((data) => {
+		//  	console.log(data);
+		//  	// $('body').text(JSON.stringify(data));
+		// });
+
+      // });
+
+		let request = wordApp.answerKey.join()
+		request += ',end'
+		console.log(wordApp.answerKey)
+
+		// string[] ids = {"2343","2344","2345"};
+		// string idString = String.Join(",",ids);
+		// Response.Write(idString);
 
 		ajax({
 			url: `http://proxy.hackeryou.com`, 
 			type: 'GET',
 			dataType: 'json',
+			contentType: 'json',
 			data:{
-				reqUrl: `https://od-api.oxforddictionaries.com:443/api/v1/stats/frequency/word/en/?corpus=nmc&lemma=hello`,
+				reqUrl: `https://od-api.oxforddictionaries.com:443/api/v1/stats/frequency/words/en/?corpus=nmc&lemmas=${request}`,
 				xmlToJSON: "false",
 				proxyHeaders:{
 					"Accept": "application/json",
 					"app_id": app_id,
 					"app_key": app_key
-				},
-			}
-			}).then((data) =>{
+				},	
+			}}).then((data) =>{
 				console.log(data)
-				// this.setState({
-				// 	multiplier: data.results
-				// });
-		});
+				this.setState({
+					multiplier: data.results
+				});
+			})
 	}
 	defineWord(e){
 		// When you click on a result, show the definition!
@@ -415,8 +452,8 @@ export default class Words extends React.Component{
 			wordList.send(null);
 		};
 
-		// readTextFile('../../words/20k.txt')
-		readTextFile('http://kurtwilliam.com/word-sandwiches/words/20k.txt')
+		readTextFile('../../words/20k.txt')
+		// readTextFile('http://kurtwilliam.com/word-sandwiches/words/20k.txt')
 
 		this.setState({
 			words: allWords
