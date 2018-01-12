@@ -37,6 +37,7 @@ header{
 		background-color: rgba(0,0,0,0);
 		border:none;
 		font-size: 2rem;
+		padding:0;
 	}
 	button:focus{
 		outline:0;
@@ -46,21 +47,38 @@ header{
 		display: flex;
 		align-items: center;
 	}
-
-	.settings {
+	.difficulty, .settings{
 		display:none;
 		background: rgba(255,255,255,0.8);
 		position:absolute;
 		z-index:100;
-		right:0;
-		top:50%;
+		right:50%;
+		top:100%;
 		transform: translate(50%,0);
+		padding:20px;
+		min-width:175px;
 
 		h3, h4 {
-			font-size:2rem;
+			font-weight:bold;
+			font-size:2.4rem;
 		}
 		button {
 			font-size:1.6rem;
+		}
+
+		&-child {
+			display: flex;
+   		flex-direction: column;
+			padding-bottom: 20px;
+
+			&:last-of-type {
+				padding-bottom:0;
+			}
+
+			button {
+				display:block;
+				padding:2px;
+			}
 		}
 
 		&-overlay {
@@ -73,47 +91,22 @@ header{
 			right:0;
 			bottom:0;
 			z-index: 90;
+
+			&.show {
+				display:block;
+			}
 		}
 
 		&-container {
-
-		}
-	}
-
-	.difficulty {
-		display:none;
-		background: rgba(255,255,255,0.8);
-		position:absolute;
-		z-index:100;
-		right:0;
-		top:50%;
-		transform: translate(50%,0);
-
-		h3, h4 {
-			font-size:2rem;
-		}
-		button {
-			font-size:1.6rem;
-		}
-
-		&-overlay {
-			display:none;
-			position:absolute;
-			width:100vw;
-			height:100vh;
-			top:0;
-			left:0;
-			right:0;
-			bottom:0;
-			z-index: 90;
-		}
-
-		&-container {
-
+			position:relative;
 		}
 	}
 }
 
 .diffSelLen, .diffSelNum, .diffSelFam  {
 	background:orange;
+}
+
+.difficulty.show, .settings.show {
+	display:block;
 }

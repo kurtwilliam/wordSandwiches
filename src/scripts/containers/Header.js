@@ -12,26 +12,20 @@ export default class Header extends React.Component{
 		// Get the modal, modalBtn, and closing span
 		const settings = document.querySelector('.settings');
 		const difficulty = document.querySelector('.difficulty');
-		const settingsOverlay = document.querySelector('.settingsOverlay');
-		const difficultyOverlay = document.querySelector('.difficultyOverlay');
+		const settingsOverlay = document.querySelector('.settings-overlay');
 
 		if (e.currentTarget.innerHTML === 'Difficulty') {
-			if (difficulty.style.display === 'block') {
-				difficulty.style.display === 'none'
-				difficultyOverlay.style.display = 'none';
-			} else {
-				difficulty.style.display = 'block';
-				difficultyOverlay.style.display = 'block';
-			}
-		} else {
-			if (settings.style.display === 'block') {
-				settings.style.display = 'none';
-				settingsOverlay.style.display = 'none';
-			} else {
-				settings.style.display = 'block';
-				settingsOverlay.style.display = 'block';
-			}
+			difficulty.classList.toggle('show');
+			settingsOverlay.classList.toggle('show');
+		} else if (e.currentTarget.innerHTML === 'Settings') {
+			settings.classList.toggle('show');
+			settingsOverlay.classList.toggle('show');
+		} else if (e.currentTarget.classList.contains('settings-overlay')){
+			settings.classList.remove('show');
+			difficulty.classList.remove('show');
+			settingsOverlay.classList.remove('show');
 		}
+		console.log(e.currentTarget)
 	}
 	// close(){
 	// 	let span = document.getElementById("close");
@@ -53,14 +47,13 @@ export default class Header extends React.Component{
 				<div className="difficulty-container header-cont">
 					<button onClick={this.settings}>Difficulty</button>
 					<Difficulty onWordLengthChange={this.props.onWordLengthChange} numberOfWords={this.props.numberOfWords} onNumberOfWordsChange={this.props.onNumberOfWordsChange} length={this.props.length} />
-					<div className="difficulty-overlay" onClick={this.settings}></div>
 				</div>
 				<h1>Word Sandwiches</h1>
 				<div className="settings-container header-cont">
 					<button onClick={this.settings}>Settings</button>
 					<Settings />
-					<div className="settings-overlay" onClick={this.settings}></div>
 				</div>
+				<div className="settings-overlay" onClick={this.settings}></div>
 			</header>
 		)
 	}

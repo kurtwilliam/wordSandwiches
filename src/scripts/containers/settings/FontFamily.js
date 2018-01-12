@@ -6,7 +6,7 @@ let fontList = [];
 export default class FontFamily extends React.Component{
 	render(){
 		return(
-			<div className="settings-fontFamily">
+			<div className="settings-fontFamily settings-child">
 				<h3>Font</h3>
 				<ChooseFont value="'Raleway', sans-serif" name='Raleway' />
 				<ChooseFont value="'Montserrat', sans-serif" name='Montserrat' />
@@ -24,23 +24,23 @@ class ChooseFont extends React.Component {
 	}
 	componentWillMount() {
 		// Get head tag and push in link with Google Font options
-		const head = document.getElementsByTagName('head');
-		const currentHead = head[0].innerHTML;
-		let newHead = currentHead;
+		// const head = document.getElementsByTagName('head');
+		// const currentHead = head[0].innerHTML;
+		// let newHead = currentHead;
 
-		// Add new font to font list and format like a google font
-		const fontName = this.props.name;
-		fontList.push(fontName);
-		const newFontList = fontList.join('|')
+		// // Add new font to font list and format like a google font
+		// const fontName = this.props.name;
+		// fontList.push(fontName);
+		// const newFontList = fontList.join('|')
 
-		// Make the google font stylesheet call equal to the fonts selections that are in the settings
-		let googleFontLink = `<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=${newFontList}">`
-		newHead = currentHead + googleFontLink;
+		// // Make the google font stylesheet call equal to the fonts selections that are in the settings
+		// let googleFontLink = `<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=${newFontList}">`
+		// newHead = currentHead + googleFontLink;
 
-		// If the current <head> doesn't have the font link in it put it in
-		if ( currentHead.search(googleFontLink) === -1 ) {
-			document.getElementsByTagName('head')[0].innerHTML = newHead
-		}
+		// // If the current <head> doesn't have the font link in it put it in
+		// if ( currentHead.search(googleFontLink) === -1 ) {
+		// 	document.getElementsByTagName('head')[0].innerHTML = newHead
+		// }
 	}
 	changeFont(e){
 		document.querySelectorAll('.diffSelFam').forEach(i => {

@@ -4,14 +4,13 @@ export default class Difficulty extends React.Component{
 	render(){
 		return(
 			<section className="difficulty">
-				<h3>Difficulty</h3>
-				<div className="difficulty-length">
+				<div className="difficulty-length difficulty-child">
 					<h4>Word Length</h4>
 					<Length name="Short" value="short" onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />
 					<Length name="Medium" value="med" onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />
 					<Length name="Long" value="long" onWordLengthChange={this.props.onWordLengthChange} length={this.props.length} />	
 				</div>
-				<div className="difficulty-number">
+				<div className="difficulty-number difficulty-child">
 					<h4>Number of Words</h4>
 					<NumberOfWords name="6" value="6" onNumberOfWordsChange={this.props.onNumberOfWordsChange} numberOfWords={this.props.numberOfWords} className="difficultySelected" />
 					<NumberOfWords name="8" value="8" onNumberOfWordsChange={this.props.onNumberOfWordsChange} numberOfWords={this.props.numberOfWords} />

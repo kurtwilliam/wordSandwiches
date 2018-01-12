@@ -30,7 +30,7 @@ export default class FontSize extends React.Component{
 	}
 	render(){
 		return(
-			<div className="settings-fontSize">
+			<div className="settings-fontSize settings-child">
 				<h3>Font Size</h3>
 				<label htmlFor="fontSize">{this.state.fontSizeDisplay} px</label>
 				<input type="range" name="fontSize" min="1.2" max="5" step="0.2" value={this.state.fontSize} onChange={this.changeFontSize} id="fontSizeInput" />
