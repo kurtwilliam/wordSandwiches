@@ -36,3 +36,9 @@ h1, h2, h3, h4, h5, h6{
 html{
 	overflow-x:hidden;
 }
+
+$off-black: #0d0a0a;
+$off-white:#faf5e4;
+$orange:#ab4625;
+$orange-light:lighten($orange,10%);
+$border-radius: 5px;

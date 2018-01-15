@@ -1,6 +1,11 @@
 import React from 'react';
 
 export default class Difficulty extends React.Component{
+	componentDidMount(){
+		//on load add selected class to component
+		document.querySelector('.difficulty-numberOfWords-button').classList.add('diffSelNum');
+		document.querySelector('.difficulty-length-button').classList.add('diffSelNum');
+	}
 	render(){
 		return(
 			<section className="difficulty">
@@ -27,6 +32,7 @@ class NumberOfWords extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 	handleChange(e) {
+		// remove then add selected class
 		document.querySelectorAll('.diffSelNum').forEach(i => {
 			i.classList.remove('diffSelNum');
 		})
@@ -35,9 +41,8 @@ class NumberOfWords extends React.Component {
 		this.props.onNumberOfWordsChange(this.props.value);
 	}
 	render() {
-		const length = this.props.length;
 		return (
-			<button onClick={this.handleChange}>{this.props.name}</button>
+			<button className="difficulty-numberOfWords-button" onClick={this.handleChange}>{this.props.name}</button>
 		)
 	}
 }
@@ -56,9 +61,8 @@ class Length extends React.Component {
 		this.props.onWordLengthChange(this.props.value);
 	}
 	render() {
-		const length = this.props.length;
 		return (
-			<button onClick={this.handleChange}>{this.props.name}</button>
+			<button className="difficulty-length-button"  onClick={this.handleChange}>{this.props.name}</button>
 		)
 	}
 }

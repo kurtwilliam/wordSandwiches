@@ -9,7 +9,7 @@ class App extends React.Component {
 	   super(props);
 	   this.handleWordLengthChange = this.handleWordLengthChange.bind(this);
 	   this.handleNumberOfWordsChange = this.handleNumberOfWordsChange.bind(this);
-	   this.state = {length: 'short', numberOfWords: 7,}
+	   this.state = {length: 'short', numberOfWords: 6,}
 	}
 	handleWordLengthChange(wordLength) {
 		this.setState({length: wordLength})

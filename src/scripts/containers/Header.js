@@ -45,12 +45,12 @@ export default class Header extends React.Component{
 		return(
 			<header>
 				<div className="difficulty-container header-cont">
-					<button onClick={this.settings}>Difficulty</button>
+					<button className="difficulty-settings" onClick={this.settings}>Difficulty</button>
 					<Difficulty onWordLengthChange={this.props.onWordLengthChange} numberOfWords={this.props.numberOfWords} onNumberOfWordsChange={this.props.onNumberOfWordsChange} length={this.props.length} />
 				</div>
-				<h1>Word Sandwiches</h1>
+				<img className="header-logo" src="assets/logo.png" alt="Word Sandwiches Logo" />
 				<div className="settings-container header-cont">
-					<button onClick={this.settings}>Settings</button>
+					<button className="settings-settings" onClick={this.settings}>Settings</button>
 					<Settings />
 				</div>
 				<div className="settings-overlay" onClick={this.settings}></div>
@@ -58,15 +58,3 @@ export default class Header extends React.Component{
 		)
 	}
 }
-
-/*
-<button id="modalBtn" onClick={this.modal}>
-<i className="fa fa-info-circle" aria-hidden="true"></i>
-</button>
-<div id="modal">
-	<div className="modalContent">
-		<span id="close" onClick={this.close}>&times;</span>
-		<p>Try to find all of the words! Words are 3-5 letters long and usually verbs. Each letter belongs to a word, and even if you guess a real word it might not be the right word. Good luck!</p>
-	</div>
-</div>
-*/

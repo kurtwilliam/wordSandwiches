@@ -2,12 +2,13 @@
 	margin:auto;
 	max-width:850px;
 	padding:20px;
+	padding-bottom:50px;
 	display:flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background-color: rgb(200,245,245);
-	border-radius: 20px;
+	background-color: $orange;
+	border-radius: $border-radius;
 	transition: all 0.15s;
 	box-shadow:  0 10px 10px rgba(0,0,0,0.3);
 	transform:scale(1);
@@ -17,11 +18,11 @@
 	}
 
 	#gameDiv {
+		min-height: 40px;
 		min-width:500px;
-		max-width:700px;
+		max-width:500px;
 		width:100%;
-		border-top: 3px solid black;
-		border-bottom: 3px solid black;
+		border:3px solid $off-white;
 		margin:10px 0;
 		text-align: center;
 		@media (max-width: 580px){
@@ -42,6 +43,10 @@
 			@media (max-width: 500px){
 				padding: 5px;
 			}
+
+			&.changeStyle{
+				padding:0px;
+			}
 		}
 
 		h2{
@@ -58,36 +63,78 @@
 			word-break:break-all;
 		}
 
-		.resultScore {
-			padding-top:0;
-		}
+		.result {
+			padding:5px;
 
-		.resultTableAnswerRow {
-			display:flex;
-			align-items: center;
-
-			p.resultTableAnswer {
-				padding: 0 5px 0 0;
-				min-width:150px;
-				text-align: left;
-				cursor:pointer;
+			&Score {
+				padding-top:0;
 			}
 
 			span {
 				text-align: left;
 				font-size: 1.6rem;
+				display: flex;
+   			align-items: center;
+			}
+
+			&Total{
+				font-size:3rem;
+				padding:0;
+			}
+
+			&Calc{
+				padding:10px;
+				font-size:1.8rem;
+			}
+			&Table{
+				h4 {
+					padding:10px 0;
+				}
+
+				&Answer{
+				padding:0;
+				cursor: pointer;
+
+					&Row{
+						display:flex;
+						padding:2.5px 0;
+
+						p {
+							min-width: 150px;
+	   					text-align: left;
+	   					padding:0 5px;
+						}
+					}
+				}
 			}
 		}
 	}
-	button{
-		font-size: 1.6rem;
-		background-color: rgba(255,255,255,0.3);
+	button.quizButton{
+		font-size: 4rem;
+		line-height: 4rem;
+		background-color: $off-black;
 		border: none;
 		margin:5px;
 		border-radius: 5px;
 		font-weight: 300;
 		padding:10px;
-		width:250px;
+		border-radius: 50%;
+		color:$off-white;
+		width:100px;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		bottom: -60px;
+	}
+
+	.userInput {
+		border-radius: 3px;
+	   background: white;
+	}
+
+	#userInputBtn {
+	   display:none;
 	}
 
 	input{

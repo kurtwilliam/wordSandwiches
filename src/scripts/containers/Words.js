@@ -17,7 +17,7 @@ export default class Words extends React.Component{
 			userInput: "",
 			answerKeys: [],
 			wordStr: '',
-			points: 30,
+			timer: 30,
 			noWords: '10',
 			gameOver: '',
 			rightAnswers: [],
@@ -34,14 +34,15 @@ export default class Words extends React.Component{
 	}
 	randoArrayPull(i) {
 		let wordsArray = this.state.words;
+		document.querySelector('h4.points').style.display = 'block';
 
-		//Only run function if the Ajax request has populated a list
+		//Only run function if the word request has populated a list
 		if ( wordsArray.length > 0 ) {
 			
 			// Reset timer upon starting
 			// Clear content in main div 
 			this.setState({
-				points:30,
+				timer:30,
 				gameOver:'',
 				rightAnswers:[]
 			}) 
@@ -155,13 +156,13 @@ export default class Words extends React.Component{
 		// Create a points system that goes down by 1 point every second. 
 		wordApp.countdown = window.setInterval(() => {
 			// Update the h4 text with the number of seconds
-		  	let points = this.state.points;
+		  	let points = this.state.timer;
 			// Decrement the number of seconds left
 			points = points -1;
 
 			// Update state of points
 			this.setState({
-				points: points
+				timer: points
 			})
 
 			// stop the points from decreasing at -30 points
@@ -210,7 +211,7 @@ export default class Words extends React.Component{
 
 		let request = wordApp.answerKey.join()
 		request += ',end'
-		console.log(wordApp.answerKey)
+		const answers = wordApp.answerKey;
 
 		// string[] ids = {"2343","2344","2345"};
 		// string idString = String.Join(",",ids);
@@ -231,6 +232,15 @@ export default class Words extends React.Component{
 				},	
 			}}).then((data) =>{
 				console.log(data)
+
+				answers.forEach(word => {
+					console.log(word)
+					// get index of answerkey word from data object (data.results[index].trueCase === word)
+					// with index also get the normalized frequency of each word(data.results[index].normalizedFrequency)
+					// make a new object for the multiplier state (word: normalizedFrequency) to reference when calculating the frequency (additional multiplier to add for each word!)
+
+				})
+
 				this.setState({
 					multiplier: data.results
 				});
@@ -283,7 +293,7 @@ export default class Words extends React.Component{
 	gameOver(){
 		// Make events for if the timer reaches 0 or if there are no more words
 		// So if the timer runs out...
-		if ( this.state.points < 1 || this.state.wordStr.length <= 2 ){
+		if ( this.state.timer < 1 || this.state.wordStr.length <= 2 ){
 
 			// Clear counter, set gameOver state to display correct and incorrect words
 			let correctAnswersStr;
@@ -320,14 +330,14 @@ export default class Words extends React.Component{
 			if (wordLength === 'short') { scoreLength = 1 }
 			else if ( wordLength === 'med' ) { scoreLength = 2 }
 			else if ( wordLength === 'long' ) { scoreLength = 3 }
+			document.querySelector('h4.points').style.display = 'none';
 
 			// const totalScore = this.props.numberOfWords * scoreLength * this.state.points 
 
 			const gameDiv = (
 				<div className="result">
-					<h2>Score: </h2>
-					<p className="resultCalc">Number of Words: {this.props.numberOfWords}, Word Length: {this.props.length}, Word Difficulty: ??</p>
-					<p className="resultScore">{this.state.points}</p>
+					<h2 className="resultTotal">Score: </h2>
+					<p className="resultCalc">Number of Words: {this.props.numberOfWords}, Word Length: {this.props.length}, Word Difficulty: ??, Timer: {this.state.timer}s</p>
 					<div className="resultTable">
 						<div className="resultTableWin">
 							<h4>Correct Words</h4>
@@ -365,7 +375,7 @@ export default class Words extends React.Component{
 		let inputState = Array.from(this.state.answerKeys);
 		let inputUser = this.state.userInput;
 		let wordPara = this.state.wordStr;
-		let newPoints = this.state.points;
+		let newPoints = this.state.timer;
 		let rightAnswers = this.state.rightAnswers;
 		const main = document.querySelector('.main');
 		let newWordPara;
@@ -393,7 +403,7 @@ export default class Words extends React.Component{
  			wordPara = newWordPara;
  			// Add 5 points to score
  			this.setState({
- 				points: newPoints + 5,
+ 				timer: newPoints + 5,
  			})
 
 		} else { 
@@ -405,7 +415,7 @@ export default class Words extends React.Component{
 
 			// remove one point
 			this.setState({
-				points: newPoints -1,
+				timer: newPoints -1,
 			})
 		}
 		// Update the state of the answerKeys, reset input field, and update the word paragraph
@@ -422,14 +432,14 @@ export default class Words extends React.Component{
 				<div className="triangleLeft"></div>
 				<div className="triangleRight"></div>
 				<div className="main">
-					<h4 className="points">Timer: {this.state.points}</h4>
+					<h4 className="points">Timer: {this.state.timer}</h4>
 					<div id="gameDiv">
 						<p id="gameDivP" className="changeStyle" ref>{this.state.wordStr}</p>
 						<span id="gameDivSpan">{this.state.gameOver}</span>
 					</div>
 					<button className='quizButton' id="quizButton" onClick={this.randoArrayPull}>Feed me!</button>
 					<form onSubmit={this.inputVer}>
-						<input id='userInput' className="userInput hidden" name="userInput" value={this.state.userInput} onChange={this.handleChange} placeholder="type a word here!" autoCorrect="off" autoComplete="off" autoCapitalize="none" />
+						<input id='userInput' className="userInput hidden" name="userInput" value={this.state.userInput} onChange={this.handleChange} placeholder="type word here!" autoCorrect="off" autoComplete="off" autoCapitalize="none" />
 						<button id='userInputBtn' className="hidden" type="submit">Answer!</button>
 					</form>
 				</div>
