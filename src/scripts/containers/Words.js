@@ -21,7 +21,7 @@ export default class Words extends React.Component{
 			noWords: '10',
 			gameOver: '',
 			rightAnswers: [],
-			multiplier: 0,
+			multiplier: [],
 			update:false,
 		}
 		this.randoArrayPull = this.randoArrayPull.bind(this);
@@ -231,19 +231,28 @@ export default class Words extends React.Component{
 					"app_key": app_key
 				},	
 			}}).then((data) =>{
-				console.log(data)
-
+				// for each, word find the result with the first matching lemma to get the normalized frequency.
+				let wordFreq, word, wordData;
 				answers.forEach(word => {
-					console.log(word)
-					// get index of answerkey word from data object (data.results[index].trueCase === word)
-					// with index also get the normalized frequency of each word(data.results[index].normalizedFrequency)
-					// make a new object for the multiplier state (word: normalizedFrequency) to reference when calculating the frequency (additional multiplier to add for each word!)
-
+					word = word; 
+					const wordMatch = data.results.find(i => {
+						return i.lemma === word;
+					})
+					if (wordMatch !== undefined) { 
+						wordFreq = wordMatch.normalizedFrequency; 
+					} else {
+						// if there is no word frequency make it equal to one.
+						wordFreq = 1;
+					}
+					wordData = {
+						word: word,
+						freq: wordFreq,
+					}
+					// 'push' new worddata obj to state!
+					this.setState({
+					  multiplier: [...this.state.multiplier, wordData]
+					})
 				})
-
-				this.setState({
-					multiplier: data.results
-				});
 			})
 	}
 	defineWord(e){
@@ -265,7 +274,6 @@ export default class Words extends React.Component{
 				},
 			},
 			success: (data) => {
-				console.log(data)
 				if (data.results[0].lexicalEntries[0]) { 
 					if (data.results[0].lexicalEntries[0].senses) {
 						definition = data.results[0].lexicalEntries[0].senses[0].definitions[0]
@@ -332,12 +340,24 @@ export default class Words extends React.Component{
 			else if ( wordLength === 'long' ) { scoreLength = 3 }
 			document.querySelector('h4.points').style.display = 'none';
 
+			const lexiData = this.state.multiplier;
+			console.log(lexiData)
+
+
+			function calcMultiplier() {
+				console.log(scoreLength)
+				console.log()
+				// body...
+			}
+
+			calcMultiplier();
+
 			// const totalScore = this.props.numberOfWords * scoreLength * this.state.points 
 
 			const gameDiv = (
 				<div className="result">
 					<h2 className="resultTotal">Score: </h2>
-					<p className="resultCalc">Number of Words: {this.props.numberOfWords}, Word Length: {this.props.length}, Word Difficulty: ??, Timer: {this.state.timer}s</p>
+					<p className="resultCalc">Number of Words: {this.props.numberOfWords}, Word Length: {this.props.length}, Word Difficulty: ??, Timer: {this.state.timer}</p>
 					<div className="resultTable">
 						<div className="resultTableWin">
 							<h4>Correct Words</h4>
