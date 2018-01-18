@@ -8,9 +8,9 @@ export default class FontFamily extends React.Component{
 		return(
 			<div className="settings-fontFamily settings-child">
 				<h3>Font</h3>
-				<ChooseFont value="'Raleway', sans-serif" name='Raleway' />
-				<ChooseFont value="'Montserrat', sans-serif" name='Montserrat' />
-				<ChooseFont value="'Roboto', sans-serif" name='Roboto' />
+				<ChooseFont value='"Raleway", sans-serif' name='Raleway' />
+				<ChooseFont value='"Montserrat", sans-serif' name='Montserrat' />
+				<ChooseFont value='"Roboto", sans-serif' name='Roboto' />
 			</div>
 		)
 	}
@@ -20,7 +20,7 @@ class ChooseFont extends React.Component {
 	constructor(props){
 		super(props);
 		this.changeFont = this.changeFont.bind(this);
-		this.state = { fontFamily: 'Roboto, sans-serif' };
+		this.state = { fontFamily: '"Roboto", sans-serif' };
 	}
 	componentWillMount() {
 		// Get head tag and push in link with Google Font options

@@ -24,15 +24,15 @@ export default class Words extends React.Component{
 			multiplier: [],
 			update:false,
 		}
-		this.randoArrayPull = this.randoArrayPull.bind(this);
+		this.feedMe = this.feedMe.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.inputVer = this.inputVer.bind(this);
 		this.points = this.points.bind(this);
 		this.gameOver = this.gameOver.bind(this);
-		this.multiplierCalc = this.multiplierCalc.bind(this);
+		this.multiplierCall = this.multiplierCall.bind(this);
 		this.defineWord = this.defineWord.bind(this);
 	}
-	randoArrayPull(i) {
+	feedMe(i) {
 		let wordsArray = this.state.words;
 		document.querySelector('h4.points').style.display = 'block';
 
@@ -71,8 +71,6 @@ export default class Words extends React.Component{
 				}
 				return;
 			}
-			  	console.log(numberOfWords)
-
 			const filteredWords = words.filter(wordFilter)
 
 			// Create shuffling function
@@ -110,7 +108,9 @@ export default class Words extends React.Component{
 				wordApp.answerKey.push(answerKey[i])
 			}
 
-			this.multiplierCalc();
+			console.log(wordApp.answerKey)
+
+			this.multiplierCall();
 
 			// Make a string we can combine all of the words in!
 			let wordStr = ``;
@@ -172,50 +172,11 @@ export default class Words extends React.Component{
 			}
 		},1000);
 	}
-	multiplierCalc() {
+	multiplierCall() {
 		// Oxford Dictionary LexiStats call
-		
-		// const reqUrl = `https://od-api.oxforddictionaries.com:443/api/v1/stats/frequency/words/en/?corpus=nmc&lemma=${word}&offset=0&limit=100`;
-
-
-		// $(document).ready(function(){
-		// ajaxSetup({
-		// 	headers: {
-		// 		"Accept": "application/json",
-		// 		"app_id": app_id,
-		// 		"app_key": app_key,
-		// 	}
-		// });
-
-			// type: 'GET',
-
-
-		// ajax({
-		// 	type:'POST',
-		// 	url:'https://od-api.oxforddictionaries.com:443/api/v1/stats/frequency/word/en/',
-		// 	dataType: 'json',
-		// 	headers: {
-		// 		"Accept": "json",
-		// 		"app_id": app_id,
-		// 		"app_key": app_key,
-		// 	},
-		// 	data: {
-	 //         "lemma": "test",
-	 //      }
-		// }).then((data) => {
-		//  	console.log(data);
-		//  	// $('body').text(JSON.stringify(data));
-		// });
-
-      // });
-
 		let request = wordApp.answerKey.join()
 		request += ',end'
 		const answers = wordApp.answerKey;
-
-		// string[] ids = {"2343","2344","2345"};
-		// string idString = String.Join(",",ids);
-		// Response.Write(idString);
 
 		ajax({
 			url: `http://proxy.hackeryou.com`, 
@@ -231,6 +192,7 @@ export default class Words extends React.Component{
 					"app_key": app_key
 				},	
 			}}).then((data) =>{
+				console.log('This is what a multi-word call to LexiStats returns', data)
 				// for each, word find the result with the first matching lemma to get the normalized frequency.
 				let wordFreq, word, wordData;
 				answers.forEach(word => {
@@ -241,16 +203,16 @@ export default class Words extends React.Component{
 					if (wordMatch !== undefined) { 
 						wordFreq = wordMatch.normalizedFrequency; 
 					} else {
-						// if there is no word frequency make it equal to one.
-						wordFreq = 1;
+						// if there is no word frequency stop.
+						return;
 					}
-					wordData = {
-						word: word,
-						freq: wordFreq,
-					}
+					// wordData = {
+					// 	word: word,
+					// 	freq: wordFreq,
+					// }
 					// 'push' new worddata obj to state!
 					this.setState({
-					  multiplier: [...this.state.multiplier, wordData]
+					  multiplier: [...this.state.multiplier, wordFreq]
 					})
 				})
 			})
@@ -335,29 +297,41 @@ export default class Words extends React.Component{
 			}
 			let scoreLength;
 			const wordLength = this.props.length;
-			if (wordLength === 'short') { scoreLength = 1 }
-			else if ( wordLength === 'med' ) { scoreLength = 2 }
-			else if ( wordLength === 'long' ) { scoreLength = 3 }
+			if (wordLength === 'short') { scoreLength = 6 }
+			else if ( wordLength === 'med' ) { scoreLength = 8 }
+			else if ( wordLength === 'long' ) { scoreLength = 10 }
 			document.querySelector('h4.points').style.display = 'none';
 
-			const lexiData = this.state.multiplier;
-			console.log(lexiData)
+			// calculate multiplier		
+			// scoreLength
+			const scoreNumOfWords = this.props.numberOfWords;
+			const timeLeft = this.state.timer;
+			const lexiData = this.state.multiplier;	
+			console.log('This is the data I need from the LexiStats call.',lexiData)
 
+			console.log(scoreLength, scoreNumOfWords, timeLeft)
+			// body...
+			const currentScore = scoreLength + scoreNumOfWords;
+			console.log(currentScore)
 
-			function calcMultiplier() {
-				console.log(scoreLength)
-				console.log()
-				// body...
-			}
+			// take out any words with frequency greater than 1
+			const cleanWordFreq = lexiData.filter(word => word <= 1);
+			console.log(cleanWordFreq)
 
-			calcMultiplier();
+			const freqSum = cleanWordFreq.reduce((a, b) => a + b, 0);
+			console.log(freqSum)
+			const wordFreqMulti = Number(1 - freqSum).toFixed(2);
+			console.log(wordFreqMulti);
+
+			const totalScore = (currentScore * wordFreqMulti) * timeLeft;
+			console.log(totalScore)
 
 			// const totalScore = this.props.numberOfWords * scoreLength * this.state.points 
 
 			const gameDiv = (
 				<div className="result">
-					<h2 className="resultTotal">Score: </h2>
-					<p className="resultCalc">Number of Words: {this.props.numberOfWords}, Word Length: {this.props.length}, Word Difficulty: ??, Timer: {this.state.timer}</p>
+					<h2 className="resultTotal">Score: {totalScore}</h2>
+					<p className="resultCalc">Number of Words: {scoreNumOfWords}, Word Length: {this.props.length}, Word Difficulty: {wordFreqMulti * 100}%, Timer: {timeLeft}</p>
 					<div className="resultTable">
 						<div className="resultTableWin">
 							<h4>Correct Words</h4>
@@ -457,7 +431,7 @@ export default class Words extends React.Component{
 						<p id="gameDivP" className="changeStyle" ref>{this.state.wordStr}</p>
 						<span id="gameDivSpan">{this.state.gameOver}</span>
 					</div>
-					<button className='quizButton' id="quizButton" onClick={this.randoArrayPull}>Feed me!</button>
+					<button className='quizButton' id="quizButton" onClick={this.feedMe}>Feed me!</button>
 					<form onSubmit={this.inputVer}>
 						<input id='userInput' className="userInput hidden" name="userInput" value={this.state.userInput} onChange={this.handleChange} placeholder="type word here!" autoCorrect="off" autoComplete="off" autoCapitalize="none" />
 						<button id='userInputBtn' className="hidden" type="submit">Answer!</button>

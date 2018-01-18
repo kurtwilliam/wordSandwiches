@@ -14,10 +14,8 @@
 	}
 }
 
-
-
 .hidden{
-	display:none;
+	display:none !important;
 }
 
 #modal {
@@ -102,6 +100,7 @@ footer {
 		letter-spacing: 2px;
 		font-size: 1.6rem;
 		color:$orange;
+		cursor: pointer;
 
 		&:hover {
 			background:$orange;

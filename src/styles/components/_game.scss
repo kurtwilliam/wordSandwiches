@@ -76,6 +76,7 @@
 				font-size: 1.6rem;
 				display: flex;
    			align-items: center;
+   			flex: 2;
 			}
 
 			&Total{
@@ -99,6 +100,7 @@
 					&Row{
 						display:flex;
 						padding:2.5px 0;
+						align-items: center;
 
 						p {
 							min-width: 150px;
