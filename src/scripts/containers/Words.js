@@ -108,7 +108,7 @@ export default class Words extends React.Component{
 				wordApp.answerKey.push(answerKey[i])
 			}
 
-			console.log(wordApp.answerKey)
+			// console.log('Answer Key Example',wordApp.answerKey)
 
 			this.multiplierCall();
 
@@ -198,7 +198,7 @@ export default class Words extends React.Component{
 				answers.forEach(word => {
 					word = word; 
 					const wordMatch = data.results.find(i => {
-						return i.lemma === word;
+						return i.wordform === word;
 					})
 					if (wordMatch !== undefined) { 
 						wordFreq = wordMatch.normalizedFrequency; 
@@ -206,11 +206,6 @@ export default class Words extends React.Component{
 						// if there is no word frequency stop.
 						return;
 					}
-					// wordData = {
-					// 	word: word,
-					// 	freq: wordFreq,
-					// }
-					// 'push' new worddata obj to state!
 					this.setState({
 					  multiplier: [...this.state.multiplier, wordFreq]
 					})
@@ -308,30 +303,22 @@ export default class Words extends React.Component{
 			const timeLeft = this.state.timer;
 			const lexiData = this.state.multiplier;	
 			console.log('This is the data I need from the LexiStats call.',lexiData)
-
-			console.log(scoreLength, scoreNumOfWords, timeLeft)
-			// body...
 			const currentScore = scoreLength + scoreNumOfWords;
-			console.log(currentScore)
 
-			// take out any words with frequency greater than 1
-			const cleanWordFreq = lexiData.filter(word => word <= 1);
-			console.log(cleanWordFreq)
+			// take out any words with frequency greater than 0.75 - to ensure words are relatively difficult
+			const filterWordFreq = lexiData.filter(word => word <= 0.75);
+			const sortWordFreq = filterWordFreq.sort().slice(0,3);
 
-			const freqSum = cleanWordFreq.reduce((a, b) => a + b, 0);
-			console.log(freqSum)
-			const wordFreqMulti = Number(1 - freqSum).toFixed(2);
-			console.log(wordFreqMulti);
+			const freqSum = sortWordFreq.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+			const wordFreqMulti = Number(freqSum).toFixed(2);
 
-			const totalScore = (currentScore * wordFreqMulti) * timeLeft;
-			console.log(totalScore)
-
-			// const totalScore = this.props.numberOfWords * scoreLength * this.state.points 
+			// let totalScore;
+			const totalScore = Number((currentScore / wordFreqMulti) * timeLeft).toFixed(0);
 
 			const gameDiv = (
 				<div className="result">
 					<h2 className="resultTotal">Score: {totalScore}</h2>
-					<p className="resultCalc">Number of Words: {scoreNumOfWords}, Word Length: {this.props.length}, Word Difficulty: {wordFreqMulti * 100}%, Timer: {timeLeft}</p>
+					<p className="resultCalc">Number of Words: {scoreNumOfWords}, Word Length: {this.props.length}, Word Difficulty: {(1 - wordFreqMulti) * 100}%, Timer: {timeLeft}</p>
 					<div className="resultTable">
 						<div className="resultTableWin">
 							<h4>Correct Words</h4>

@@ -3,11 +3,6 @@ import Settings from '../components/Settings.js'
 import Difficulty from '../components/Difficulty.js'
 
 export default class Header extends React.Component{
-	// constructor(){
-		// super();
-		// this.modal = this.modal.bind(this);
-		// this.close = this.close.bind(this);
-	// }
 	settings(e) {
 		// Get the modal, modalBtn, and closing span
 		const settings = document.querySelector('.settings');
@@ -25,22 +20,7 @@ export default class Header extends React.Component{
 			difficulty.classList.remove('show');
 			settingsOverlay.classList.remove('show');
 		}
-		console.log(e.currentTarget)
 	}
-	// close(){
-	// 	let span = document.getElementById("close");
-	// 	let modal = document.getElementById('modal');
-	// 	// When the user clicks on the close button, closes modal
-	// 	span.onclick = function() {
-	// 	    modal.style.display = "none";
-	// 	}
-	// }
-	// headerChange(e){
-	// 	this.setState({
-	// 		wordLength: e.target.value,
-	// 	})
-	// 	console.log(this.state.wordLength)
-	// }
 	render(){
 		return(
 			<header>
